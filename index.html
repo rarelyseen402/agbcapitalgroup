@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AGB Capital Group® — Assurance. Growth. Boldness.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --blue: #4285F4;
+    --green: #34A853;
+    --yellow: #FBBC05;
+    --off-white: #f0ece4;
+    --dim: rgba(255,255,255,0.12);
+    --dim2: rgba(255,255,255,0.06);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--yellow);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(251,188,5,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, left 0.08s ease, top 0.08s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 60px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+    animation: fadeDown 1s ease forwards;
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .nav-logo {
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .logo-letters {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  .logo-letters .a { color: var(--blue); }
+  .logo-letters .g { color: var(--green); }
+  .logo-letters .b { color: var(--yellow); }
+  .logo-reg { font-size: 0.6rem; color: var(--white); vertical-align: super; }
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-left: -6px;
+  }
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--white);
+    border: none;
+    padding: 10px 22px;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--yellow); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .hero-accent-line {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--blue), var(--green), var(--yellow));
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 28px;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+  .hero-heading {
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+  .hero-heading em {
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+  }
+  .hero-heading .highlight-blue { color: var(--blue); }
+  .hero-heading .highlight-green { color: var(--green); }
+  .hero-heading .highlight-yellow { color: var(--yellow); }
+  .hero-sub {
+    max-width: 520px;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.55);
+    margin: 32px 0 48px;
+    animation: fadeUp 1s ease 0.7s both;
+  }
+  .hero-ctas {
+    display: flex; gap: 20px; align-items: center;
+    animation: fadeUp 1s ease 0.9s both;
+  }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--white);
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--yellow); transform: translateY(-2px); }
+  .btn-ghost {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+  .btn-ghost::after {
+    content: '→';
+    font-size: 1rem;
+    transition: transform 0.3s;
+  }
+  .btn-ghost:hover::after { transform: translateX(6px); }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px; bottom: 80px;
+    display: flex; flex-direction: column; gap: 32px;
+    animation: fadeUp 1s ease 1.1s both;
+  }
+  .hero-stat {
+    text-align: right;
+    border-right: 2px solid var(--dim);
+    padding-right: 20px;
+  }
+  .hero-stat-number {
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .hero-stat-number span { font-style: italic; color: var(--yellow); }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--dim);
+    border-bottom: 1px solid var(--dim);
+    padding: 18px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 0 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .marquee-item .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    display: inline-block;
+  }
+  .marquee-item .dot-blue { background: var(--blue); }
+  .marquee-item .dot-green { background: var(--green); }
+  .marquee-item .dot-yellow { background: var(--yellow); }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTION BASE */
+  section { padding: 120px 60px; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 30px; height: 1px;
+    background: currentColor;
+  }
+
+  /* ABOUT / PILLARS */
+  .pillars-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .pillars-left h2 {
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 28px;
+  }
+  .pillars-left p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.55);
+    max-width: 440px;
+  }
+  .pillars-right {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .pillar {
+    border-top: 1px solid var(--dim);
+    padding: 36px 0;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    align-items: start;
+    transition: background 0.3s;
+    cursor: none;
+  }
+  .pillar:last-child { border-bottom: 1px solid var(--dim); }
+  .pillar:hover { background: var(--dim2); }
+  .pillar-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+  }
+  .pillar-letter.a { color: var(--blue); }
+  .pillar-letter.g { color: var(--green); }
+  .pillar-letter.b { color: var(--yellow); }
+  .pillar-content h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .pillar-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* SERVICES */
+  .services-section { background: #050505; }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 70px;
+  }
+  .services-header h2 {
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.1;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: #0a0a0a;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: none;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:nth-child(1)::before { background: var(--blue); }
+  .service-card:nth-child(2)::before { background: var(--green); }
+  .service-card:nth-child(3)::before { background: var(--yellow); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: #111; }
+  .service-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 40px;
+  }
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  .service-card h3 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .service-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* PROCESS */
+  .process-section {}
+  .process-section h2 {
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    margin-bottom: 80px;
+    max-width: 500px;
+    line-height: 1.1;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .process-step {
+    padding: 40px 30px 40px 0;
+    border-left: 1px solid var(--dim);
+    padding-left: 30px;
+    position: relative;
+  }
+  .process-step::before {
+    content: '';
+    position: absolute;
+    top: 40px; left: -5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 2px solid rgba(255,255,255,0.3);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .process-step:nth-child(1)::before { border-color: var(--blue); }
+  .process-step:nth-child(2)::before { border-color: var(--green); }
+  .process-step:nth-child(3)::before { border-color: var(--yellow); }
+  .process-step:nth-child(4)::before { border-color: var(--white); }
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 20px;
+  }
+  .process-step h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .process-step p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* WHY US */
+  .why-section {
+    background: linear-gradient(135deg, #030303 0%, #080808 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .why-section::before {
+    content: 'AGB';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30vw;
+    right: -4vw;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.025;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .why-inner {
+    position: relative; z-index: 1;
+  }
+  .why-inner h2 {
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    margin-bottom: 70px;
+    max-width: 500px;
+    line-height: 1.1;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .why-item {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 32px;
+    border: 1px solid var(--dim);
+    transition: border-color 0.3s;
+    cursor: none;
+  }
+  .why-item:hover { border-color: rgba(255,255,255,0.25); }
+  .why-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .why-item h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .why-item p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 160px 60px;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(66,133,244,0.08) 0%, transparent 65%);
+  }
+  .cta-section h2 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .cta-section p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 52px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    position: relative;
+  }
+  .cta-buttons {
+    display: flex; gap: 20px; justify-content: center;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--dim);
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .footer-brand .logo-letters { font-size: 1.5rem; }
+  .footer-brand .logo-sub { display: block; margin-top: 6px; font-size: 0.5rem; }
+  .footer-brand p {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.35);
+    max-width: 260px;
+  }
+  .footer-links h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+  .footer-links ul { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .footer-contact h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 20px;
+  }
+  .footer-contact p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+  .footer-bottom {
+    border-top: 1px solid var(--dim);
+    padding: 24px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+  }
+  .footer-tricolor {
+    display: flex; gap: 6px;
+  }
+  .footer-tricolor span {
+    width: 20px; height: 3px; border-radius: 2px;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero { padding: 0 24px; }
+    .hero-stats { display: none; }
+    .pillars-section { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 0; }
+    .why-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; padding: 40px 24px; }
+    .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 10px; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-letters">
+      <span class="a">A</span><span class="g">G</span><span class="b">B</span><span class="logo-reg">®</span>
+    </div>
+    <span class="logo-sub">Capital Group</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#why">Why Us</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-accent-line"></div>
+
+  <p class="hero-eyebrow">Investment Advisory · Asset &amp; Wealth Management</p>
+  <h1 class="hero-heading">
+    <em>Your wealth,</em><br>
+    <span class="highlight-blue">strategically</span><br>
+    <span class="highlight-green">grown</span> &amp;<br>
+    <span class="highlight-yellow">protected.</span>
+  </h1>
+  <p class="hero-sub">AGB Capital Group delivers institutional-grade investment advisory and wealth management solutions built on three unshakeable pillars: Assurance, Growth, and Boldness.</p>
+
+  <div class="hero-ctas">
+    <a href="#contact" class="btn-primary">Start Your Journey</a>
+    <a href="#services" class="btn-ghost">Explore Services</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-number">100<span>%</span></div>
+      <div class="hero-stat-label">Client Commitment</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">3<span>+</span></div>
+      <div class="hero-stat-label">Core Disciplines</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">∞</div>
+      <div class="hero-stat-label">Ambition</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="dot dot-blue"></span>Investment Advisory</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Asset Management</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Wealth Preservation</span>
+    <span class="marquee-item"><span class="dot dot-blue"></span>Portfolio Strategy</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Risk Management</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Capital Allocation</span>
+    <span class="marquee-item"><span class="dot dot-blue"></span>Financial Planning</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Market Intelligence</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Growth Solutions</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item"><span class="dot dot-blue"></span>Investment Advisory</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Asset Management</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Wealth Preservation</span>
+    <span class="marquee-item"><span class="dot dot-blue"></span>Portfolio Strategy</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Risk Management</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Capital Allocation</span>
+    <span class="marquee-item"><span class="dot dot-blue"></span>Financial Planning</span>
+    <span class="marquee-item"><span class="dot dot-green"></span>Market Intelligence</span>
+    <span class="marquee-item"><span class="dot dot-yellow"></span>Growth Solutions</span>
+  </div>
+</div>
+
+<!-- PILLARS / ABOUT -->
+<section id="about">
+  <div class="pillars-section reveal">
+    <div class="pillars-left">
+      <p class="section-label">Our Foundation</p>
+      <h2>Three letters. One unwavering commitment to your financial future.</h2>
+      <p>At AGB Capital Group, every decision, strategy, and recommendation is filtered through three core principles that define who we are and how we serve our clients.</p>
+    </div>
+    <div class="pillars-right">
+      <div class="pillar">
+        <div class="pillar-letter a">A</div>
+        <div class="pillar-content">
+          <h3>Assurance</h3>
+          <p>We operate with transparency, fiduciary duty, and rigorous risk controls — giving you the confidence that your assets are managed with the utmost integrity and care.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-letter g">G</div>
+        <div class="pillar-content">
+          <h3>Growth</h3>
+          <p>Data-driven strategies rooted in economic fundamentals and quantitative analysis, designed to compound your wealth consistently over the long term.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-letter b">B</div>
+        <div class="pillar-content">
+          <h3>Boldness</h3>
+          <p>Markets reward those who act decisively. We identify high-conviction opportunities others overlook, positioning you ahead of emerging trends and cycles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services-section">
+  <div class="services-header reveal">
+    <div>
+      <p class="section-label">What We Do</p>
+      <h2>Comprehensive financial services, precisely tailored.</h2>
+    </div>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">◈</div>
+      <h3>Investment Advisory</h3>
+      <p>Bespoke investment strategies developed through deep market research, macroeconomic analysis, and quantitative modelling — aligned to your goals and risk tolerance.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">◉</div>
+      <h3>Asset Management</h3>
+      <p>Active and systematic portfolio management across equities, fixed income, alternatives, and multi-asset strategies. Continuous monitoring with disciplined rebalancing.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">◇</div>
+      <h3>Wealth Management</h3>
+      <p>A holistic approach to growing and protecting your wealth — integrating investment planning, tax efficiency, estate considerations, and generational wealth transfer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <p class="section-label reveal">How We Work</p>
+  <h2 class="reveal">A structured process.<br><em>A personal relationship.</em></h2>
+  <div class="process-steps reveal">
+    <div class="process-step">
+      <div class="step-num">01 / Discovery</div>
+      <h3>Deep Understanding</h3>
+      <p>We begin by truly understanding your financial situation, objectives, time horizon, and risk appetite through in-depth consultation.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02 / Strategy</div>
+      <h3>Custom Blueprint</h3>
+      <p>Our analysts craft a tailored investment policy statement and asset allocation framework built specifically for you — not a template.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03 / Execution</div>
+      <h3>Precise Deployment</h3>
+      <p>We implement your strategy with discipline, selecting instruments and timing entry points to optimise risk-adjusted returns.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04 / Review</div>
+      <h3>Ongoing Refinement</h3>
+      <p>Markets evolve. We continuously monitor performance, rebalance where necessary, and keep you informed with clear reporting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="why-section">
+  <div class="why-inner">
+    <p class="section-label reveal">Why AGB</p>
+    <h2 class="reveal">Built different,<br>from the ground up.</h2>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="why-icon">📊</div>
+        <div>
+          <h3>Quantitative Rigour</h3>
+          <p>Every recommendation is backed by statistical modelling and empirical analysis — our economics and finance background means we speak the language of data.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🎯</div>
+        <div>
+          <h3>Client-First Fiduciary</h3>
+          <p>We act solely in your interest. No hidden fees, no commission-driven conflicts. Complete alignment between your success and ours.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🌍</div>
+        <div>
+          <h3>Global Market Perspective</h3>
+          <p>We monitor domestic and international markets to identify diversification opportunities and hedge against geopolitical and macroeconomic risks.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🔐</div>
+        <div>
+          <h3>Institutional Standards</h3>
+          <p>We apply the same risk management frameworks used by institutional investors — bringing professional-grade discipline to every client portfolio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <h2 class="reveal">Ready to build<br><em>lasting wealth?</em></h2>
+  <p class="reveal">Schedule a confidential consultation with our advisory team and take the first step toward a structured, purposeful financial future.</p>
+  <div class="cta-buttons reveal">
+    <a href="mailto:info@agbcapitalgroup.com" class="btn-primary">Book a Consultation</a>
+    <a href="tel:+254742457213" class="btn-ghost">Call Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo">
+      <div class="logo-letters">
+        <span class="a">A</span><span class="g">G</span><span class="b">B</span><span class="logo-reg">®</span>
+      </div>
+      <span class="logo-sub">Capital Group</span>
+    </div>
+    <p>Assurance. Growth. Boldness. — A next-generation investment advisory and wealth management firm built for those who demand more from their capital.</p>
+  </div>
+  <div class="footer-links">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Our Process</a></li>
+      <li><a href="#why">Why AGB</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-contact">
+    <h4>Get In Touch</h4>
+    <p>
+      info@agbcapitalgroup.com<br>
+      +254 742 457 213<br><br>
+      Available Mon–Fri<br>
+      9:00 AM – 5:00 PM
+    </p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 AGB Capital Group®. All rights reserved. Investment involves risk. Past performance is not indicative of future results.</p>
+  <div class="footer-tricolor">
+    <span style="background:var(--blue)"></span>
+    <span style="background:var(--green)"></span>
+    <span style="background:var(--yellow)"></span>
+  </div>
+</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .pillar, .service-card, .why-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
